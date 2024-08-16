@@ -2,8 +2,6 @@ import { useContext } from "react"
 import { UserContext } from "../context/UserContext"
 import HomeProductCard from "../components/products/HomeProductCard"
 import HomeBanner from "../components/banners/HomeBanner"
-import BannerOffer from "../components/banners/BannerOffer"
-import ProductCategory from "../components/products/ProductCategory"
 import { Link } from "react-router-dom"
 
 const products = [
@@ -55,7 +53,7 @@ const products = [
     imageSrc: 'https://storage.googleapis.com/pai-images/4972e9b2dafc41fcae26f2a2135399b6.jpeg',
     imageAlt: "e-commerce photo",
   },
-  // More products...
+
 ]
 
 const products2 = [
@@ -84,7 +82,6 @@ const products2 = [
     imageAlt: "e-commerce photo",
   },
 
-  // More products...
 ]
 
 const myBanner = {
@@ -131,7 +128,6 @@ const callouts = [
 
 export const Home = () => {
 
-  // El UserContext nos provee de la info de usuario
   const { usuario } = useContext( UserContext );
   const { userStore, userAction } = usuario;
 

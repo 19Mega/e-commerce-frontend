@@ -39,8 +39,6 @@ export const App = () => {
       <ProductProvider>
         <CartProvider>
 
-          {/* <TopMiniBanner/> */}
-          {/* <TopMiniBannerOneLine/> */}
           <NavBar />
 
           <Routes>
