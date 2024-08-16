@@ -3,8 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom"
 // Components
 import NavBar from "./routes/components/NavBar";
 import {Footer} from "./routes/components/Footer";
-import TopMiniBanner from "./routes/components/banners/TopMiniBanner"
-import TopMiniBannerOneLine from "./routes/components/Banners/TopMiniBannerOneLine";
 
 // Pages
 import { Home } from "./routes/pages/Home"
