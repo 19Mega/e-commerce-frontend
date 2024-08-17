@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../context/UserContext';
@@ -13,7 +13,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const { usuario } = useContext(UserContext);
-  const { userStore, userAction } = usuario;
+  const { userAction } = usuario;
 
   const { setCart } = useContext(CartContext);
 
@@ -31,8 +31,7 @@ export const Login = () => {
       if (loginResult.success) {
         setCart(JSON.parse(localStorage.getItem('userCart'))); // to update cart after login
         Swal.fire({
-          title: 'Bienvenido!',
-          text: 'A comprar!',
+          title: 'Welcome!',
           icon: 'success',
           timer: 2000,
         });
@@ -40,9 +39,9 @@ export const Login = () => {
       } else {
         Swal.fire({
           title: 'Error!',
-          text: 'Contraseña o Mail invalido!',
+          text: 'Invalid password or email!',
           icon: 'error',
-          confirmButtonText: 'Intentar de nuevo'
+          confirmButtonText: 'Try again'
         });
         setError(loginResult.error);
       }
@@ -77,7 +76,7 @@ export const Login = () => {
 
             <div className="mt-4">
               <label htmlFor="password" className="block text-sm">
-                Contraseña
+                Password
               </label>
               <input
                 type="password"
@@ -98,12 +97,11 @@ export const Login = () => {
               className="mt-12 w-full py-2 md:p-1 text-white bg-emerald-500 hover:bg-indigo-700 focus:outline-none font-medium"
               type="submit"
             >
-              Iniciar Sesión
+              Login
             </button>
 
-
             <Link to="/signup" className="text-sm align-bottom mt-4 block text-center">
-              ¿No tienes una cuenta? <span className='font-semibold hover:text-indigo-700'>Registrate aquí</span>
+              Don't have an account? <span className='font-semibold hover:text-indigo-700'>Sign Up here</span>
             </Link>
           </form>
         </div>
