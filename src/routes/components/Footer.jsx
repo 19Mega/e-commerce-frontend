@@ -8,7 +8,7 @@ export const Footer = () => {
           <div className='h-0.5 bg-gradient-to-r from-emerald-400 to-indigo-500 font-semibold text-center my-2 col-span-full'> </div>
 
 
-          <p className="text-gray-700 text-xs">Copyright © 2024 www.peteco.com</p>
+          <p className="text-gray-700 text-xs">Copyright © 2024</p>
         </div>
       </div>
     </footer>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useLocation } from 'react-router-dom'
 
 import { DeliveryAddress } from '../components/payments/DeliveryAddress'
@@ -43,39 +43,29 @@ export const CheckoutPage = () => {
             quantity: item.quantity,
             unit_price: item.price
           }));
-          // const newItem = {
-          //   title: 'Producto de ejemplo',
-          //   quantity: 1,
-          //   unit_price: 50.0,
-          // }
-          //setItemsForPurchase([...itemsForPurchase, newItem, newItem, newItem])
           setMergadoPagoItems(itemsForMercadoLibre)
         }
         else {
           Swal.fire({
             icon: 'warning',
-            text: 'Selecciona un método de pago',
+            text: 'Select a payment method',
           })
         }
       }
       else {
         Swal.fire({
           icon: 'warning',
-          text: 'Selecciona una dirección de envío',
+          text: 'Select a delivery address',
         })
       }
     }
     else {
       Swal.fire({
         icon: 'warning',
-        text: 'Ingresa con tu cuenta por favor',
+        text: 'Please log in to your account',
       })
     }
   }
-  console.log(mergadoPagoItems)
-  useEffect(() => {
-    console.log(mergadoPagoItems)
-  }, [])
 
   return (
     <>
@@ -94,7 +84,7 @@ export const CheckoutPage = () => {
 
               <div className='flex items-center ml-1 mt-5 mb-3'>
                 <CreditCardIcon className='h-8 w-8 cursor-pointer text-indigo-500' />
-                <h2 className='mx-2 font-medium text-lg text-indigo-500'> Elige un método de pago: </h2>
+                <h2 className='mx-2 font-medium text-lg text-indigo-500'> Choose a payment method: </h2>
               </div>
 
               <ul>
@@ -136,7 +126,7 @@ export const CheckoutPage = () => {
                     <span> {deliveryAddress.street} {deliveryAddress.street_number} </span> <br />
                   </div>
                 ) : (
-                  <span className='text-gray-300'>Dirección de envío...</span>
+                  <span className='text-gray-300'>Shipping address..</span>
                 )}
               </div>
 
@@ -161,15 +151,15 @@ export const CheckoutPage = () => {
                 <p className="font-medium text-md">U$D {calculateSubtotal()}</p>
               </div>
               <div className="mb-2 flex justify-between">
-                <p className="text-md text-emerald-500 font-medium">Envío:</p>
-                <p className="text-md text-emerald-500 font-medium">Gratis</p>
+                <p className="text-md text-emerald-500 font-medium">Shipment:</p>
+                <p className="text-md text-emerald-500 font-medium">Free</p>
               </div>
               <div className="border-t-2 border-gray-200 my-3"></div>
               <div className="mb-2 flex justify-between">
                 <p className="font-medium text-md">Total:</p>
                 <p className="font-medium text-md">U$D {calculateTotal()}</p>
               </div>
-              <p className="text-md text-gray-700 mb-4">IVA incluido</p>
+              <p className="text-md text-gray-700 mb-4">IVA included</p>
 
 
               <div className='bg-gray-100 w-full p-2 my-2'>
@@ -182,14 +172,14 @@ export const CheckoutPage = () => {
 
                   </div>
                 ) : (
-                  <span className='text-gray-300'>Seleccione forma de pago</span>
+                  <span className='text-gray-300'>Select payment method</span>
                 )}
               </div>
 
 
 
               <button className="mt-2 w-full bg-yellow-400 py-2 hover:bg-yellow-500 " onClick={handleMercadoPago}>
-                Finalizar Pedido
+                Finalize Order
               </button>
 
               <MercadoPagoPayment items={mergadoPagoItems} />

@@ -49,7 +49,7 @@ export default function ProductDetail() {
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
-                text: 'Ingresa con tu cuenta para agregar favoritos!',
+                text: 'Log in with your account to add favorites!',
             })
         }
     }
@@ -63,14 +63,14 @@ export default function ProductDetail() {
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
-                text: 'Ingresa con tu cuenta para agregar favoritos!',
+                text: 'Log in with your account to add favorites!',
             })
         }
     }
 
     const handleAddToCart = (id) => {
         addToCart(id)
-      }
+    }
 
     useEffect(() => {
         getProduct(params.id)
@@ -80,7 +80,7 @@ export default function ProductDetail() {
         <div className='bg-white'>
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h1 className="mt-4 mb-2 md:py-2 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Lunes a Viernes hasta 20% OFF</h1>
+                <h1 className="mt-4 mb-2 md:py-2 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Monday to Friday up to 20% OFF</h1>
 
             </div>
 
@@ -162,8 +162,10 @@ export default function ProductDetail() {
                     </div>
 
                     <div className='my-2'>
-                        <span className='text-emerald-500 font-semibold underline'>Envío Gratis</span> <span className='font-medium text-base text-gray-400 mx-1'>A cualquier parte del país </span>
+                        <span className='text-emerald-500 font-semibold underline'>Free Shipping</span>
+                        <span className='font-medium text-base text-gray-400 mx-1'>Anywhere in the country</span>
                     </div>
+
 
                     <div className='text-lg border-2 border-gray-100 shadow-sm text-gray-500 px-2 py-2 mt-4 rounded-sm'>
                         {item?.short_description}
@@ -180,7 +182,7 @@ export default function ProductDetail() {
                     </ul> */}
 
                     <ul className='border-2 border-gray-100 shadow-sm text-gray-600 p-2 mt-2 rounded-sm'>
-                        <span className='text-indigo-400 text-lg font-semibold'>Sobre este artículo</span>
+                        <span className='text-indigo-400 text-lg font-semibold'>About this article</span>
 
                         {item?.characteristic_1_title &&
                             <li>
@@ -205,24 +207,24 @@ export default function ProductDetail() {
                     </ul>
 
 
-                    
-                        <button
+
+                    <button
                         onClick={() => handleAddToCart(item?.id)}
-                            className='mt-2 flex w-full items-center justify-center border border-transparent bg-emerald-500 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2'
-                        >
-                            Agregar al Carrito
-                        </button>
+                        className='mt-2 flex w-full items-center justify-center border border-transparent bg-emerald-500 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2'
+                    >
+                        Add to Cart
+                    </button>
 
-                        <button
-                            className='mt-2 flex w-full items-center justify-center border border-transparent bg-emerald-500 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                        >
-                            Comprar Ahora
-                        </button>
+                    <button
+                        className='mt-2 flex w-full items-center justify-center border border-transparent bg-emerald-500 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                    >
+                        Buy Now
+                    </button>
 
-                        <div className='h-1 bg-gradient-to-r from-emerald-400  to-indigo-500 font-semibold text-center mt-2 '>
+                    <div className='h-1 bg-gradient-to-r from-emerald-400  to-indigo-500 font-semibold text-center mt-2 '>
 
-                        </div>
-                    
+                    </div>
+
 
 
                 </div>

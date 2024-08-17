@@ -49,17 +49,15 @@ export default function ShoppingCart() {
       if (shoppingCartItems.length == 0) {
         Swal.fire({
           icon: 'warning',
-          text: 'Necesitas tener items en tu carrito para proceder.',
+          text: 'You need to have items in your cart to proceed.',
         })
-      }
-      else{
+      } else {
         navigate('/checkout', { state: { itemsForPurchase: shoppingCartItems } })
       }
-    }
-    else {
+    } else {
       Swal.fire({
         icon: 'error',
-        text: 'Ingresa con tu cuenta por favor',
+        text: 'Please log in to your account',
       })
     }
   }
@@ -72,7 +70,7 @@ export default function ShoppingCart() {
   return (
     <div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="my-4 md:py-2 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Carrito de compras</h1>
+        <h1 className="my-4 md:py-2 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Shopping Cart</h1>
         <div className='mb-3 h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500'> </div>
         <div className="mx-auto justify-center md:flex md:space-x-6 xl:px-0">
 
@@ -107,7 +105,7 @@ export default function ShoppingCart() {
               <p className="font-medium text-md">U$D {calculateSubtotal()}</p>
             </div>
             <div className="mb-2 flex justify-between">
-              <p className="text-md text-emerald-500 font-medium">Envío:</p>
+              <p className="text-md text-emerald-500 font-medium">Shipment:</p>
               <p className="text-md text-emerald-500 font-medium">U$D 0.00</p>
             </div>
             <div className="border-t-2 border-gray-200 my-3"></div>
@@ -115,10 +113,10 @@ export default function ShoppingCart() {
               <p className="font-medium text-md">Total:</p>
               <p className="font-medium text-md">U$D {calculateTotal()}</p>
             </div>
-            <p className="text-md text-gray-700 mb-4">IVA incluido</p>
+            <p className="text-md text-gray-700 mb-4">IVA included</p>
 
             <button className="mt-2 w-full bg-indigo-600 py-2 text-white font-normal hover:bg-indigo-700" onClick={handleCheckout}>
-              Proceder al pedido
+              Proceed to order
             </button>
 
           </div>

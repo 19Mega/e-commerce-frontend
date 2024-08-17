@@ -43,25 +43,25 @@ const EmptyProductCard = (item) => {
 };
 
 const productFields = [
-  { name: 'short_description', label: 'Descripción corta' },
-  { name: 'long_description', label: 'Descripción larga' },
-  { name: 'category', label: 'Categoría' },
-  { name: 'subcategory', label: 'Subcategoría' },
-  { name: 'price', label: 'Precio en $', type: 'number' },
-  { name: 'discount', label: 'Descuento', type: 'number' },
+  { name: 'short_description', label: 'Short Description' },
+  { name: 'long_description', label: 'Long Description' },
+  { name: 'category', label: 'Category' },
+  { name: 'subcategory', label: 'Subcategory' },
+  { name: 'price', label: 'Price in $', type: 'number' },
+  { name: 'discount', label: 'Discount', type: 'number' },
   { name: 'stock', label: 'Stock', type: 'number' },
-  { name: 'characteristic_1_title', label: 'Característica 1' },
-  { name: 'characteristic_1_description', label: 'Descripción caract. 1' },
-  { name: 'characteristic_2_title', label: 'Característica 2' },
-  { name: 'characteristic_2_description', label: 'Descripción caract. 2' },
-  { name: 'characteristic_3_title', label: 'Característica 3' },
-  { name: 'characteristic_3_description', label: 'Descripción caract. 3' },
-  { name: 'characteristic_4_title', label: 'Característica 4' },
-  { name: 'characteristic_4_description', label: 'Descripción caract. 4' },
-  { name: 'image_1', label: 'URL imagen 1' },
-  { name: 'image_2', label: 'URL imagen 2' },
-  { name: 'image_3', label: 'URL imagen 3' },
-  { name: 'image_4', label: 'URL imagen 4' }
+  { name: 'characteristic_1_title', label: 'Feature 1' },
+  { name: 'characteristic_1_description', label: 'Feature 1 Description' },
+  { name: 'characteristic_2_title', label: 'Feature 2' },
+  { name: 'characteristic_2_description', label: 'Feature 2 Description' },
+  { name: 'characteristic_3_title', label: 'Feature 3' },
+  { name: 'characteristic_3_description', label: 'Feature 3 Description' },
+  { name: 'characteristic_4_title', label: 'Feature 4' },
+  { name: 'characteristic_4_description', label: 'Feature 4 Description' },
+  { name: 'image_1', label: 'Image URL 1' },
+  { name: 'image_2', label: 'Image URL 2' },
+  { name: 'image_3', label: 'Image URL 3' },
+  { name: 'image_4', label: 'Image URL 4' }
 ];
 
 export const Admin = () => {
@@ -100,46 +100,46 @@ export const Admin = () => {
       image_4: ''
     },
     validationSchema: Yup.object({
-      short_description: Yup.string().max(120, 'Máximo 120 caracteres').required('Requerido'),
-      long_description: Yup.string().max(120, 'Máximo 120 caracteres').required('Requerido'),
-      category: Yup.string().required('Requerido'),
-      subcategory: Yup.string().required('Requerido'),
-      price: Yup.number().min(0, 'El precio no puede ser negativo').required('Requerido'),
+      short_description: Yup.string().max(120, 'Máximo 120 caracteres').required('Required'),
+      long_description: Yup.string().max(120, 'Máximo 120 caracteres').required('Required'),
+      category: Yup.string().required('Required'),
+      subcategory: Yup.string().required('Required'),
+      price: Yup.number().min(0, 'The price cannot be negative').required('Required'),
       discount: Yup.number().optional(),
-      stock: Yup.number().required('Requerido'),
-      characteristic_1_title: Yup.string().required('Requerido'),
+      stock: Yup.number().required('Required'),
+      characteristic_1_title: Yup.string().required('Required'),
       characteristic_2_title: Yup.string(),
       characteristic_3_title: Yup.string(),
       characteristic_4_title: Yup.string(),
-      characteristic_1_description: Yup.string().required('Requerido'),
+      characteristic_1_description: Yup.string().required('Required'),
       characteristic_2_description: Yup.string(),
       characteristic_3_description: Yup.string(),
       characteristic_4_description: Yup.string(),
-      image_1: Yup.string().url('URL invalida').required('Requerido'),
-      image_2: Yup.string().url('URL invalida'),
-      image_3: Yup.string().url('URL invalida'),
-      image_4: Yup.string().url('URL invalida')
+      image_1: Yup.string().url('Invalid URL').required('Required'),
+      image_2: Yup.string().url('Invalid URL'),
+      image_3: Yup.string().url('Invalid URL'),
+      image_4: Yup.string().url('Invalid URL')
     }),
     onSubmit: async (values) => {
       try {
         const response = await productAction.postProduct(values)
         if (response.ok) {
           Swal.fire({
-            text: 'Producto creado!',
+            text: 'Product created!',
             icon: 'success',
             confirmButtonText: 'Ok'
           });
           formikProduct.setValues(formikProduct.initialValues);
         } else {
           Swal.fire({
-            text: result.msg || 'Error creando producto.',
+            text: result.msg || 'Error creating product.',
             icon: 'error',
-            confirmButtonText: 'Intentar de nuevo.'
+            confirmButtonText: 'Try again'
           });
         }
       } catch (error) {
         Swal.fire({
-          text: 'Error en la red, intente mas tarde.',
+          text: 'Network error, try again later.',
           icon: 'error',
           confirmButtonText: 'Try again'
         });
@@ -153,7 +153,7 @@ export const Admin = () => {
     formikProduct.setValues(response);
     if (response.msg) {
       Swal.fire({
-        text: 'No se encontro el producto.',
+        text: 'The product was not found.',
         icon: 'warning',
         confirmButtonText: 'Ok'
       });
@@ -162,7 +162,7 @@ export const Admin = () => {
   } catch (error) {
     console.error('Error fetching product:', error);
         Swal.fire({
-          text: 'Error en la red, intente más tarde.',
+          text: 'Network error, try again later.',
           icon: 'error',
           confirmButtonText: 'Ok'
         });
@@ -174,14 +174,14 @@ export const Admin = () => {
       const response = await productAction.updateProduct(formikProduct.values,productId)
       if (response.status == 200) {
         Swal.fire({
-          text: 'Actualizado correctamente.',
+          text: 'Successfully updated.',
           icon: 'success',
           confirmButtonText: 'Ok'
         });
       }
     } catch (error) {
       Swal.fire({
-        text: 'Error en la red, no se pudo actualizar.',
+        text: 'Network error, could not update.',
         icon: 'error',
         confirmButtonText: 'Ok'
       });
@@ -191,17 +191,17 @@ export const Admin = () => {
   const deleteProductById = async () => {
     try {
       const result = await Swal.fire({
-        html: `¿Estás seguro de que deseas eliminar este producto?<br>${formikProduct.values.short_description}`,
+        html: `Are you sure you want to remove this product?<br>${formikProduct.values.short_description}`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: 'Yes, delete it',
+        cancelButtonText: 'Cancel'
       });
       if (result.isConfirmed) {
         const response = await productAction.deleteProduct(productId);
         if (response.status === 200) {
           Swal.fire({
-            text: 'Producto eliminado correctamente.',
+            text: 'Product removed.',
             icon: 'success',
             confirmButtonText: 'Ok'
           });
@@ -210,7 +210,7 @@ export const Admin = () => {
       }
     } catch (error) {
       Swal.fire({
-        text: 'Error en la red, no se pudo eliminar.',
+        text: 'Network error, could not be removed.',
         icon: 'error',
         confirmButtonText: 'Ok'
       });
@@ -230,10 +230,10 @@ export const Admin = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 className="my-4 md:py-2 text-center text-3xl md:text-4xl font-thin bg-gradient-to-r from-emerald-400 to-indigo-500 text-white sepia">Administración</h1>
+      <h1 className="my-4 md:py-2 text-center text-3xl md:text-4xl font-thin bg-gradient-to-r from-emerald-400 to-indigo-500 text-white sepia">Administration</h1>
       <div className='mb-2 h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500 sepia'></div>
 
-      <h2 className="text-xl mb-3 text-center text-indigo-500 sepia">Vista previa del producto</h2>
+      <h2 className="text-xl mb-3 text-center text-indigo-500 sepia">Product preview</h2>
       {EmptyProductCard(formikProduct.values)}
       <div className='mt-4 mb-4 h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500 sepia'></div>
 
@@ -252,15 +252,15 @@ export const Admin = () => {
           />
 
           <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-normal py-2 px-4 w-full" onClick={fetchProductById}>
-            Buscar producto
+            Search Product
           </button>
 
           <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-normal py-2 px-4 w-full" onClick={updateProductById}>
-            Actualizar producto
+            Update Product
           </button>
 
           <button className="bg-red-500 hover:bg-red-700 text-white font-normal py-2 px-4 w-full" onClick={deleteProductById}>
-            Eliminar producto
+            Delete Product
           </button>
 
         </div>
@@ -271,7 +271,7 @@ export const Admin = () => {
 
 
       <div className='mt-4 mb-2 h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500 sepia'></div>
-      <h2 className="text-xl mb-3 text-center text-indigo-500 sepia">Agregar Producto</h2>
+      <h2 className="text-xl mb-3 text-center text-indigo-500 sepia">Add Product</h2>
 
 
 
@@ -300,7 +300,7 @@ export const Admin = () => {
         </div>
         <div className="mt-6 mb-12 justify-center">
           <button type="submit" className="bg-indigo-500 shadow-lg shadow-indigo-500/50 hover:bg-indigo-700 text-white font-thin py-2 w-full sepia">
-            Agregar Producto
+            Add Product
           </button>
         </div>
       </form>

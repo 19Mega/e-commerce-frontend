@@ -4,17 +4,18 @@ import { ProductContext } from '../context/ProductContext'
 import { UserContext } from '../context/UserContext'
 
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
-import { HeartIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 
 import ProductCategory from '../components/products/ProductCategory'
 import ProductCard from '../components/products/ProductCard'
 
 const sortOptions = [
-    { name: 'Más Populares', current: true },
-    { name: 'Menor precio', current: false },
-    { name: 'Mayor precio', current: false }
+    { name: 'Most Popular', current: true },
+    { name: 'Lowest Price', current: false },
+    { name: 'Highest Price', current: false }
 ]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -23,38 +24,38 @@ function classNames(...classes) {
 const checkBox = [
     {
         id: 1,
-        name: 'Categorias',
+        name: 'Categories',
         options: [
-            { id: '1', name: 'category', value: 'Electronicos', description: 'Todos' },
+            { id: '1', name: 'category', value: 'Electronics', description: 'All' },
         ]
     },
     {
         id: 2,
-        name: 'SubCategorias',
+        name: 'Subcategories',
         options: [
-            { id: '1', name: 'subcategory', value: 'Tarjetas graficas', description: 'Tarjetas graficas' },
-            { id: '2', name: 'subcategory', value: 'Procesadores', description: 'Procesadores' },
-            { id: '3', name: 'subcategory', value: 'Teclados', description: 'Teclados' },
+            { id: '1', name: 'subcategory', value: 'Graphics Cards', description: 'Graphics Cards' },
+            { id: '2', name: 'subcategory', value: 'Processors', description: 'Processors' },
+            { id: '3', name: 'subcategory', value: 'Keyboards', description: 'Keyboards' },
         ]
     },
     {
         id: 3,
-        name: 'Descuentos',
+        name: 'Discounts',
         options: [
-            { id: '1', name: 'discount', value: 5, description: 'Hasta 5% descuento' },
-            { id: '2', name: 'discount', value: 10, description: 'Hasta 10% descuento' },
-            { id: '3', name: 'discount', value: 15, description: 'Hasta 15% descuento' },
-            { id: '4', name: 'discount', value: 20, description: 'Hasta 20% descuento' },
+            { id: '1', name: 'discount', value: 5, description: 'Up to 5% off' },
+            { id: '2', name: 'discount', value: 10, description: 'Up to 10% off' },
+            { id: '3', name: 'discount', value: 15, description: 'Up to 15% off' },
+            { id: '4', name: 'discount', value: 20, description: 'Up to 20% off' },
         ]
     },
     {
         id: 4,
-        name: 'Rango de Precios',
+        name: 'Price Range',
         options: [
-            { id: '1', name: 'price', value: [0, 250], description: 'De 0 a 250 U$D' },
-            { id: '2', name: 'price', value: [251, 500], description: 'De 251 a 500 U$D' },
-            { id: '3', name: 'price', value: [501, 1000], description: 'De 501 a 1000 U$D' },
-            { id: '4', name: 'price', value: [1001, 999999], description: '+ De 1000 U$D' },
+            { id: '1', name: 'price', value: [0, 250], description: 'From 0 to 250 USD' },
+            { id: '2', name: 'price', value: [251, 500], description: 'From 251 to 500 USD' },
+            { id: '3', name: 'price', value: [501, 1000], description: 'From 501 to 1000 USD' },
+            { id: '4', name: 'price', value: [1001, 999999], description: 'Over 1000 USD' },
         ]
     }
 ]
@@ -240,7 +241,7 @@ export default function Products() {
                                                         )}
                                                         onClick={sortByPriceDescending}
                                                     >
-                                                        Mayor a menor
+                                                        Highest Price
                                                     </button>
                                                 )}
                                             </Menu.Item>
@@ -253,7 +254,7 @@ export default function Products() {
                                                         )}
                                                         onClick={sortByPriceAscending}
                                                     >
-                                                        Menor a mayor
+                                                        Lowest Price
                                                     </button>
                                                 )}
                                             </Menu.Item>

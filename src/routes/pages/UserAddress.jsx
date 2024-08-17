@@ -29,64 +29,65 @@ export default function UserAddress() {
       references: '',
     },
     validationSchema: Yup.object({
-      name_surname: Yup.string().required('Campo obligatorio'),
-      phone: Yup.number().required('Campo obligatorio').typeError('Debe ser un número'),
-      department: Yup.string().notOneOf(['--Seleccione--'], 'Selecciona un departamento válido').required('Campo obligatorio'),
-      city: Yup.string().required('Campo obligatorio'),
-      street: Yup.string().required('Campo obligatorio'),
-      street_number: Yup.number().required('Campo obligatorio').typeError('Debe ser un número'),
+      name_surname: Yup.string().required('Required field'),
+      phone: Yup.number().required('Required field').typeError('Must be a number'),
+      department: Yup.string().notOneOf(['--Select--'], 'Select a valid department').required('Required field'),
+      city: Yup.string().required('Required field'),
+      street: Yup.string().required('Required field'),
+      street_number: Yup.number().required('Required field').typeError('Must be a number'),
       // no_number
       // references
     }),
+
 
     onSubmit: async (values) => {
 
       if (params.id) {
         // modify address
-        const modifyAddressResult = await userAction.modifyAddress(values)
+        const modifyAddressResult = await userAction.modifyAddress(values);
 
         if (modifyAddressResult.success) {
           Swal.fire({
-            title: 'Dirección modificada correctamente!',
+            title: 'Address modified successfully!',
             icon: 'success',
             timer: 2000,
-          })
+          });
           navigate('/profile');
         } else {
           Swal.fire({
             title: 'Error!',
-            text: 'Necesitas haber ingresado para modificar una dirección',
+            text: 'You need to be logged in to modify an address',
             icon: 'error',
             timer: 2000,
-          })
+          });
           navigate('/login');
           //setError(addAddressResult.error);
         }
 
-      }
-      else {
+      } else {
         // add address
         const addAddressResult = await userAction.addAddress(values);
         if (addAddressResult.success) {
           Swal.fire({
-            title: 'Dirección agregada correctamente!',
+            title: 'Address added successfully!',
             icon: 'success',
             timer: 2000,
-          })
+          });
           navigate('/profile');
         } else {
           Swal.fire({
             title: 'Error!',
-            text: 'Necesitas haber ingresado para agregar una dirección',
+            text: 'You need to be logged in to add an address',
             icon: 'error',
             timer: 3000,
-          })
+          });
           navigate('/login');
           //setError(addAddressResult.error);
         }
       }
 
     }
+
 
   })
 
@@ -132,14 +133,14 @@ export default function UserAddress() {
         <form onSubmit={formik.handleSubmit}>
           <div className="space-y-12">
             <div className="">
-              <h2 className="text-lg font-semibold leading-7 text-gray-900">Dirección de envío</h2>
-              <p className="mt-1  text-m  leading-normal text-gray-600 lg:mt-2 xl:mt-3">Agregue los datos de la dirección y la persona que recibirá el envío.</p>
+              <h2 className="text-lg font-semibold leading-7 text-gray-900">Shipping Address</h2>
+              <p className="mt-1  text-m  leading-normal text-gray-600 lg:mt-2 xl:mt-3">Add the address details and the person who will receive the shipment.</p>
 
               <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                 <div className="sm:col-span-2">
                   <label htmlFor="name_surname" className="block text-sm font-medium leading-3 text-gray-900">
-                    Nombre y Apellido
+                    First and Last Name
                   </label>
                   <div className="mt-2">
                     <input
@@ -165,7 +166,7 @@ export default function UserAddress() {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="phone" className="block text-sm font-medium leading-3 text-gray-900">
-                    Celular de contacto
+                    Contact Phone Number
                   </label>
                   <div className="mt-2">
                     <input
@@ -187,7 +188,7 @@ export default function UserAddress() {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="department" className="block text-sm font-medium leading-3 text-gray-900">
-                    Departamento
+                    State
                   </label>
                   <div className="mt-2">
                     <select
@@ -228,7 +229,7 @@ export default function UserAddress() {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="city" className="block text-sm font-medium leading-3 text-gray-900">
-                    Localidad
+                    Locality
                   </label>
                   <div className="mt-2">
                     <input
@@ -249,7 +250,7 @@ export default function UserAddress() {
 
                 <div className="sm:col-span-2 xs:col-span-3">
                   <label htmlFor="street-address" className="block text-sm font-medium leading-3 text-gray-900">
-                    Calle / Avenida
+                    Street / Avenue
                   </label>
                   <div className="mt-2">
                     <input
@@ -270,7 +271,7 @@ export default function UserAddress() {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="door-number" className="block text-sm font-medium leading-3 text-gray-900">
-                    N° Puerta/Apto
+                    Door N° / Apt
                   </label>
                   <div className="mt-2 flex items-center">
                     <input
@@ -293,7 +294,7 @@ export default function UserAddress() {
                       checked={formik.values.no_number}
                     />
                     <label htmlFor="no-number" className="ml-2 block text-sm font-medium leading-3 text-gray-900">
-                      Sin número
+                      No Number
                     </label>
 
 
@@ -306,7 +307,7 @@ export default function UserAddress() {
 
                 <div className="col-span-full">
                   <label htmlFor="references" className="flex text-sm font-medium text-gray-900">
-                    Referencias del domicilio
+                    Home references
                     <p className=" ml-2 text-sm text-gray-400" >(opcional)</p>
                   </label>
 
@@ -332,13 +333,13 @@ export default function UserAddress() {
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <Link to='/profile' type="button" className="text-sm font-semibold leading-3 text-gray-900">
-              Cancelar
+              Cancel
             </Link>
             <button
               type="submit"
               className="rounded-sm bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
             >
-              Guardar
+              Save
             </button>
           </div>
 

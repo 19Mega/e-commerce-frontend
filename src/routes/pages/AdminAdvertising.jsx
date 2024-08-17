@@ -69,22 +69,21 @@ export const AdminAdvertising = () => {
 
       <div className="my-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h1 className="md:py-2 text-center text-3xl md:text-4xl font-thin bg-gradient-to-r from-emerald-400 to-indigo-500 text-white sepia">
-          Administración de Publicidad
+          Advertising Administration
         </h1>
         <div className="my-3 h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500 sepia"></div>
       </div>
 
       <div className="my-2">
-        <h2 className='my-2 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>adasdsasdasdasd</h2>
         <Banner img={bannerImage} />
       </div>
 
       <div className='bg-gray-200'>
         <div className="max-w-md mx-auto mt-10 p-6 bg-red-500 rounded-sm shadow-xl sepia">
-          <h2 className="text-2xl font-thin mb-6 text-center text-white">Banners en pagina principal</h2>
+          <h2 className="text-2xl font-thin mb-6 text-center text-white">Banners on main page</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="imageUrl" className="block text-sm font-thin text-white">URL de la imagen</label>
+              <label htmlFor="imageUrl" className="block text-sm font-thin text-white">Image URL</label>
               <input
                 type="text"
                 id="imageUrl"
@@ -95,7 +94,7 @@ export const AdminAdvertising = () => {
               />
             </div>
             <div>
-              <label htmlFor="category" className="block text-sm font-thin text-white">Categoría</label>
+              <label htmlFor="category" className="block text-sm font-thin text-white">Category</label>
               <input
                 type="text"
                 id="category"
@@ -109,7 +108,7 @@ export const AdminAdvertising = () => {
               type="submit"
               className="w-full py-2 px-4 rounded-sm shadow-sm text-sm font-thin text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Crear Publicidad
+              Create Advertising
             </button>
           </form>
           {message && (
@@ -154,10 +153,10 @@ export const AdminAdvertising = () => {
 
       <div>
         <div className="max-w-md mx-auto mt-10 p-6 bg-red-500 rounded-sm shadow-xl sepia">
-          <h2 className="text-2xl font-thin mb-6 text-center text-white">Poductos en pagina principal</h2>
+          <h2 className="text-2xl font-thin mb-6 text-center text-white">Products on main page</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="imageUrl" className="block text-sm font-thin text-white">URL de la imagen</label>
+              <label htmlFor="imageUrl" className="block text-sm font-thin text-white">Image URL</label>
               <input
                 type="text"
                 id="imageUrl"
@@ -168,7 +167,7 @@ export const AdminAdvertising = () => {
               />
             </div>
             <div>
-              <label htmlFor="position" className="block text-sm font-thin text-white">Posición</label>
+              <label htmlFor="position" className="block text-sm font-thin text-white">Position</label>
               <select
                 id="position"
                 value={position}
@@ -185,7 +184,7 @@ export const AdminAdvertising = () => {
               type="submit"
               className="w-full py-2 px-4 rounded-sm shadow-sm text-sm font-thin text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Guardar Imagen
+              Save Image
             </button>
           </form>
           {message && (

@@ -5,7 +5,7 @@ import { CartContext } from '../context/CartContext'
 import { useNavigate, Link } from 'react-router-dom'
 
 import { Dialog, Popover, Tab, Transition, Menu } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { DateTime } from 'luxon'
 import SearchBar from './SearchBar'
 
@@ -223,12 +223,12 @@ export default function Navbar() {
                     <>
                       <div className="flow-root">
                         <Link to="/login" className="-m-2 block p-2 font-medium text-gray-900">
-                          Ingresar
+                          Login
                         </Link>
                       </div>
                       <div className="flow-root">
                         <Link to="/signup" className="-m-2 block p-2 font-medium text-gray-900">
-                          Crear usuario
+                          Signup
                         </Link>
                       </div>
                     </>
@@ -269,8 +269,9 @@ export default function Navbar() {
                   />
                 </a> */}
                 <Link to='/' className='transition transform hover:scale-105'>
-                  <span className='p-1 px-2 text-indigo-700 shadow-sm border-2 text-lg font-medium'>Peteco 🛒</span>
+                  <span className='p-1 px-2 text-indigo-700 shadow-sm border-2 text-lg font-medium'>e-commerce</span>
                 </Link>
+
 
               </div>
 
@@ -385,11 +386,11 @@ export default function Navbar() {
                   <>
                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                       <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-indigo-600">
-                        Ingresar
+                        Login
                       </Link>
                       <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                       <Link to="/signup" className="text-sm font-medium text-gray-700 hover:text-indigo-600">
-                        Registrarse
+                        Signup
                       </Link>
                     </div>
                   </>
@@ -455,7 +456,7 @@ export default function Navbar() {
                             to="/profile"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Mi perfil
+                            Profile
                           </Link>
                         )}
                       </Menu.Item>
@@ -475,7 +476,7 @@ export default function Navbar() {
                             to="/favorite"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Favoritos
+                            Favorites
                           </Link>
                         )}
                       </Menu.Item>
@@ -485,7 +486,7 @@ export default function Navbar() {
                             to="/shoppingcart"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Carrito
+                            Shopping Cart
                           </Link>
                         )}
                       </Menu.Item>
@@ -497,7 +498,7 @@ export default function Navbar() {
                               to="/admin"
                               className={classNames(active ? 'bg-red-100' : '', 'block px-4 py-2 text-sm font-semibold text-red-600')}
                             >
-                              Adm. Productos
+                              Manage Products
                             </Link>
                           )}
                         </Menu.Item>
@@ -509,11 +510,12 @@ export default function Navbar() {
                               to="/admin-advertising"
                               className={classNames(active ? 'bg-red-100' : '', 'block px-4 py-2 text-sm font-semibold text-red-600')}
                             >
-                              Adm. Publicidad
+                              Manage Advertising
                             </Link>
                           )}
                         </Menu.Item>
                       }
+
                       <Menu.Item>
                         {({ active }) => (
                           <span

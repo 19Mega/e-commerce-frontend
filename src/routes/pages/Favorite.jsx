@@ -50,7 +50,7 @@ export default function Favorite() {
       if (favoriteItems.length === 0) {
         Swal.fire({
           icon: 'warning',
-          text: 'Necesitas tener items en tus favoritos para proceder.',
+          text: 'You need to have items in your favorites to proceed.',
         });
       } else {
         navigate('/checkout', { state: { itemsForPurchase: favoriteItems } });
@@ -58,7 +58,7 @@ export default function Favorite() {
     } else {
       Swal.fire({
         icon: 'error',
-        text: 'Ingresa con tu cuenta por favor',
+        text: 'Log in with your account please.',
       });
     }
   };
@@ -82,7 +82,7 @@ export default function Favorite() {
                   <div className="mt-5 sm:mt-0">
                     <h2 className="text-lg font-bold text-gray-900">{item.short_description}</h2>
                     <p className="mt-2 text-dark">U$D {item.price}</p>
-                    <button onClick={() => handleRemoveFavorite(item.id)} className="text-blue-500 mt-2">Eliminar</button>
+                    <button onClick={() => handleRemoveFavorite(item.id)} className="text-blue-500 mt-2">Remove</button>
                   </div>
                 </div>
               </div>

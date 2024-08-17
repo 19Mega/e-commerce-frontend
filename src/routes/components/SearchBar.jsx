@@ -74,7 +74,7 @@ export default function SearchBar() {
                     <input
                         type="text"
                         className="p-1 px-2 text-indigo-700 text-md font-medium flex-grow"
-                        placeholder="Buscar productos..."
+                        placeholder="Search products"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
