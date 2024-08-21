@@ -32,15 +32,13 @@ export default function HomeProductCard({ products }) {
               onClick={() => handleProductDetail(product.id)}
             >
               <div className="w-full h-40 sm:h-60 lg:h-60 overflow-hidden shadow-md rounded-sm">
-                <img
-                  src={product.image_1}
-                  alt={product.imageAlt}
-                  className="w-full h-full object-cover group-hover:hidden"
-                />
+
+              <img className='h-screen max-h-36 md:max-h-48 w-full object-scale-down group-hover:hidden' src={product.image_1} alt={product.imageAlt} />
+                
                 <img
                   src={product.image_2}
                   alt={product.imageAlt}
-                  className="w-full h-full object-cover hidden group-hover:block"
+                  className="h-screen max-h-36 md:max-h-48 w-full object-scale-down hidden group-hover:block"
                 />
               </div>
 

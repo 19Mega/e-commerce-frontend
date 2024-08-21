@@ -169,14 +169,14 @@ export default function ProductDetail() {
                 <div className='mt-8'>
                     <div className='flex'>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-900'>
-                            U$D {item?.price || 0}
+                            U$D {(item?.price || 0).toFixed(2)}
                         </p>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-300 mx-1'>/</p>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-300 line-through'>
-                            {(1 + (item?.discount || 0) / 100) * (item?.price || 0)}
+                            {((1 + (item?.discount || 0) / 100) * (item?.price || 0)).toFixed(2)}
                         </p>
-
                     </div>
+
 
                     <div className='my-2'>
                         <span className='text-emerald-500 font-semibold underline'>Free Shipping</span>
