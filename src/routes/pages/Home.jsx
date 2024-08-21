@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { UserContext } from "../context/UserContext"
 import HomeProductCard from "../components/products/HomeProductCard"
+import HomeProductButtons from "../components/products/HomeProductButtons"
 import HomeBanner from "../components/banners/HomeBanner"
 import { Link } from "react-router-dom"
 
@@ -8,53 +9,70 @@ const products = [
   {
     id: 1,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/e35acd6678144fe3832f34e1ea86484e.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/e35acd6678144fe3832f34e1ea86484e.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/6605f53c83e449a09c589b039692a91b.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Most Popular"
   },
   {
     id: 2,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/6605f53c83e449a09c589b039692a91b.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/6605f53c83e449a09c589b039692a91b.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/e35acd6678144fe3832f34e1ea86484e.jpeg',
     imageAlt: "e-commerce photo",
+    label: "The Newest"
   },
   {
     id: 3,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/5a544728396f454d85e6f8e141f585e1.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/5a544728396f454d85e6f8e141f585e1.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/5a544728396f454d85e6f8e141f585e1.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Most Requested"
   },
   {
     id: 4,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/a38d37408dfc4bc19309fc0493ddf937.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/a38d37408dfc4bc19309fc0493ddf937.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/a38d37408dfc4bc19309fc0493ddf937.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Best Offer"
   },
   {
     id: 5,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/d63694c2d21145b0bbdc3dd5d1b5755e.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/b074762550804fc1b3fc6015902118c6.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/b074762550804fc1b3fc6015902118c6.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Top Rated"
   },
   {
     id: 6,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/2604330b48914e60bf7c13061d60d6af.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/67cfa2bd4ce3483ea2edb816314ed088.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/67cfa2bd4ce3483ea2edb816314ed088.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Editor's Choice"
   },
   {
     id: 7,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/8aa24183aec64d3f940a699e5e6022d3.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/0f9496aacfed4320a964ab5c64fdeb2d.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/0f9496aacfed4320a964ab5c64fdeb2d.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Limited Edition"
   },
   {
     id: 8,
     href: '#',
-    imageSrc: 'https://storage.googleapis.com/pai-images/4972e9b2dafc41fcae26f2a2135399b6.jpeg',
+    image_1: 'https://storage.googleapis.com/pai-images/592b12d56d1846fab8d6b84bc1e7d823.jpeg',
+    image_2: 'https://storage.googleapis.com/pai-images/592b12d56d1846fab8d6b84bc1e7d823.jpeg',
     imageAlt: "e-commerce photo",
+    label: "Best Seller"
   },
+];
 
-]
+
 
 const products2 = [
   {
@@ -83,20 +101,6 @@ const products2 = [
   },
 
 ]
-
-const myBanner = {
-  id: 1,
-  href: '',
-  imageSrc: 'https://http2.mlstatic.com/D_NQ_795146-MLA74234784944_022024-OO.jpg',
-  imageAlt: "e-commerce photo",
-}
-
-const myBanner2 = {
-  id: 2,
-  href: '#',
-  imageSrc: 'https://http2.mlstatic.com/D_NQ_686292-MLA73220560926_122023-OO.webp',
-  imageAlt: "e-commerce photo",
-}
 
 const callouts = [
   {
@@ -128,16 +132,25 @@ const callouts = [
 
 export const Home = () => {
 
-  const { usuario } = useContext( UserContext );
+  const { usuario } = useContext(UserContext);
   const { userStore, userAction } = usuario;
 
- 
+
   return (
     <>
-      <HomeBanner {...myBanner} />
+      <div className="flex items-center justify-center py-2 my-2 bg-gray-700">
+        <h1 className="gradient-text md:text-5xl md:p-2">eTec-NaN-Logic</h1>
+      </div>
+      <div className="flex items-center justify-center bg-gray-300">
+        <h2 className="font-bold tracking-[0.15em]">Your Best Choice For Gaming</h2>
+      </div>
+
+      <HomeBanner />
+      <HomeProductButtons />
+
 
       <div className="flex justify-center">
-        <Link to='/products' className="flex">
+        {/* <Link to='/products' className="flex">
           <span className='mt-4 px-20 py-1 inline-flex align-middle text-indigo-700 shadow-sm border-2 text-lg'>
             Productos
           </span>
@@ -153,21 +166,17 @@ export const Home = () => {
           <span className='mt-4 px-4 py-1 ml-5 inline-flex align-middle text-indigo-700 shadow-sm border-2 text-lg'>
             Login
           </span>
-        </Link> 
-
+        </Link>  */}
       </div>
-
 
       {/* <ProductCategory callouts={callouts} /> */}
 
       <HomeProductCard products={products} />
-      <HomeBanner {...myBanner2} />
+      <HomeBanner />
 
       {/* <BannerOffer/> */}
 
-      <HomeProductCard products={products2} />
-
-      {/* <TailwindButton/> */}
+      {/* <HomeProductCard products={products2} /> */}
 
 
     </>

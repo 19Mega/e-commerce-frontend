@@ -57,7 +57,7 @@ export default function UserProfile() {
             <h2 className="text-lg font-normal tracking-tight text-gray-900">Personal information</h2>
           </div>
 
-          <hr className="mb-3 my-2 border-4 border-emerald-600" />
+          <div className='h-0.5 bg-gradient-to-r from-emerald-400 to-indigo-500 font-semibold text-center my-2 col-span-full'> </div>
 
           <div className='p-3 mt-4 border-2 border-gray-200 rounded-sm'>
             <div className="flex flex-row w-full gap-2 mt-2 sm:mt-0 sm:flex-col sm:items-start">
@@ -90,7 +90,7 @@ export default function UserProfile() {
             </Link>
           </div>
 
-          <hr className="mb-3 my-2 border-4 border-emerald-600" />
+          <div className='h-0.5 bg-gradient-to-r from-emerald-400 to-indigo-500 font-semibold text-center my-2 col-span-full'> </div>
           <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
 
             {userAddresses.map((userAddress) => (

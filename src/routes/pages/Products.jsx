@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { ProductContext } from '../context/ProductContext'
 import { UserContext } from '../context/UserContext'
@@ -7,7 +8,6 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 
-import ProductCategory from '../components/products/ProductCategory'
 import ProductCard from '../components/products/ProductCard'
 
 const sortOptions = [
@@ -16,26 +16,20 @@ const sortOptions = [
     { name: 'Highest Price', current: false }
 ]
 
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 const checkBox = [
+
     {
         id: 1,
         name: 'Categories',
         options: [
-            { id: '1', name: 'category', value: 'Electronics', description: 'All' },
-        ]
-    },
-    {
-        id: 2,
-        name: 'Subcategories',
-        options: [
-            { id: '1', name: 'subcategory', value: 'Graphics Cards', description: 'Graphics Cards' },
-            { id: '2', name: 'subcategory', value: 'Processors', description: 'Processors' },
+            { id: '1', name: 'subcategory', value: 'Motherboards', description: 'Motherboards' },
+            { id: '2', name: 'subcategory', value: 'Graphics Cards', description: 'Graphics Cards' },
             { id: '3', name: 'subcategory', value: 'Keyboards', description: 'Keyboards' },
+            { id: '4', name: 'subcategory', value: 'Mouses', description: 'Mouses' },
         ]
     },
     {
@@ -60,8 +54,7 @@ const checkBox = [
     }
 ]
 
-
-export default function Products() {
+export default function Products({ initialFilter }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     const { usuario } = useContext(UserContext)
@@ -71,47 +64,62 @@ export default function Products() {
     const { productStore, productAction } = product
 
     const [products, setProducts] = useState([])
-
     const [filter, setFilter] = useState({})
+    const [sortedProducts, setSortedProducts] = useState([])
+
+    const location = useLocation()
+
+    useEffect(() => {
+        const newFilter = initialFilter || (location.state && location.state.filter) || {}
+        setFilter(newFilter)
+    }, [initialFilter, location])
 
     const handleFilter = (e, category, value) => {
-        setFilter(prevFilter => ({ ...prevFilter, [category]: e.target.checked ? value : '' }))
+        setFilter(prevFilter => {
+            if (e.target.checked) {
+                return { ...prevFilter, [category]: value }
+            } else {
+                const newFilter = { ...prevFilter }
+                delete newFilter[category]
+                return newFilter
+            }
+        })
     }
 
     const getProducts = async () => {
-        if (JSON.parse(localStorage.getItem('userFavorites'))) {
-            const favorites = JSON.parse(localStorage.getItem('userFavorites'))
-            const fetchedProducts = await productAction.getProduct(filter)
-            const updatedProducts = fetchedProducts.map(product => ({
-                ...product,
-                favorite: favorites.includes(product.id) ? true : product.favorite
-            }))
-            setProducts(updatedProducts);
-        } else {
-            const fetchedProducts = await productAction.getProduct(filter)
-            setProducts(fetchedProducts);
-        }
-    }
-
-
-    const [sortedProducts, setSortedProducts] = useState([]);
-    const sortByPriceDescending = () => {
-        const sorted = [...products].sort((a, b) => b.price - a.price);
-        setProducts(sorted);
-    }
-    
-    const sortByPriceAscending = () => {
-        const sorted = [...products].sort((a, b) => a.price - b.price);
-        setProducts(sorted);
+        const fetchedProducts = await productAction.getProduct(filter)
+        const favorites = JSON.parse(localStorage.getItem('userFavorites')) || []
+        const updatedProducts = fetchedProducts.map(product => ({
+            ...product,
+            favorite: favorites.includes(product.id)
+        }))
+        setProducts(updatedProducts)
+        setSortedProducts([])
     }
 
     useEffect(() => {
         getProducts()
     }, [filter])
 
+    const sortByPriceDescending = () => {
+        const sorted = [...products].sort((a, b) => b.price - a.price)
+        setSortedProducts(sorted)
+    }
+
+    const sortByPriceAscending = () => {
+        const sorted = [...products].sort((a, b) => a.price - b.price)
+        setSortedProducts(sorted)
+    }
+
     return (
         <div className='bg-white'>
 
+            <div className="flex items-center justify-center py-2 my-2 bg-gray-700">
+                <h1 className="gradient-text md:text-5xl md:p-2">eTec-NaN-Logic</h1>
+            </div>
+            <div className="flex items-center justify-center bg-gray-300">
+                <h2 className="font-bold tracking-[0.15em]">Your Best Choice For Gaming</h2>
+            </div>
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -154,7 +162,6 @@ export default function Products() {
                                     {/* Filters Mobile*/}
                                     <form className='mt-4 pt-4 border-t border-gray-200'>
                                         <h3 className='sr-only'>Categories</h3>
-
                                         <ul>
                                             {checkBox.map(item => (
                                                 <li className='mb-3' key={item.id}>
@@ -177,7 +184,6 @@ export default function Products() {
                                                 </li>
                                             ))}
                                         </ul>
-
                                     </form>
                                 </Dialog.Panel>
                             </Transition.Child>
@@ -187,7 +193,6 @@ export default function Products() {
 
                 <main className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
                     <div className='flex items-baseline justify-between border-b border-gray-200 pb-4 pt-5'>
-
                         <h1 className='text-4xl font-bold tracking-tight text-gray-900'></h1>
 
                         <div className='flex items-center'>
@@ -214,24 +219,6 @@ export default function Products() {
                                 >
                                     <Menu.Items className='absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none'>
                                         <div className='py-1'>
-
-                                            {/* {sortOptions.map((option) => (
-                                                <Menu.Item key={option.name}>
-                                                    {({ active }) => (
-                                                        <a
-                                                            href={option.href}
-                                                            className={classNames(
-                                                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                                active ? 'bg-gray-100' : '',
-                                                                'block px-4 py-2 text-sm'
-                                                            )}
-                                                        >
-                                                            {option.name}
-                                                        </a>
-                                                    )}
-                                                </Menu.Item>
-                                            ))} */}
-
                                             <Menu.Item key="option1">
                                                 {({ active }) => (
                                                     <button
@@ -258,13 +245,8 @@ export default function Products() {
                                                     </button>
                                                 )}
                                             </Menu.Item>
-
-
-
                                         </div>
                                     </Menu.Items>
-
-
                                 </Transition>
                             </Menu>
 
@@ -281,7 +263,6 @@ export default function Products() {
                                 <span className='sr-only'>Filters</span>
                                 <FunnelIcon className='h-5 w-5' aria-hidden='true' />
                             </button>
-
                         </div>
                     </div>
 
@@ -289,12 +270,9 @@ export default function Products() {
                     <div className='h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500'> </div>
 
                     <section aria-labelledby='products-heading' className='pt-4'>
-
                         <div className='grid grid-cols-1 lg:grid-cols-4'>
-
                             {/* Filters big screen*/}
                             <form className='hidden lg:block mr-2'>
-
                                 <ul>
                                     {checkBox.map(item => (
                                         <li className='mb-3' key={item.id}>
@@ -319,35 +297,20 @@ export default function Products() {
                                 </ul>
                             </form>
 
-
                             {/* Product grid - mobile and pc */}
                             <div className='lg:col-span-3 h-full'>
-
-                                {/* <ProductCategory products={products} /> */}
                                 <ul>
-                                    {sortedProducts.length > 0 ? sortedProducts.map((item) => (
-                                        <div key={item.id}>
-                                            <ProductCard product={item} />
-                                        </div>
-                                    )) : products.map((item) => (
+                                    {(sortedProducts.length > 0 ? sortedProducts : products).map((item) => (
                                         <div key={item.id}>
                                             <ProductCard product={item} />
                                         </div>
                                     ))}
                                 </ul>
-
-
-
                             </div>
                         </div>
                     </section>
-
-
                 </main>
             </div>
         </div>
     )
 }
-
-
-

@@ -1,13 +1,15 @@
 import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { ProductContext } from '../context/ProductContext'
-
+import { useNavigate } from "react-router-dom";
 
 import { HeartIcon } from '@heroicons/react/24/solid'
 import { UserContext } from '../context/UserContext'
 import { CartContext } from '../context/CartContext'
 
 export default function ProductDetail() {
+    const navigate = useNavigate();
+
     const params = useParams()
     const [item, setItem] = useState()
 
@@ -72,12 +74,27 @@ export default function ProductDetail() {
         addToCart(id)
     }
 
+    const handleBuyProduct = () => {
+        handleAddToCart(item.id);
+        setTimeout(() => {
+            navigate('/shoppingcart');
+        }, 250)
+    };
+
+
     useEffect(() => {
         getProduct(params.id)
     }, [])
 
     return (
         <div className='bg-white'>
+
+            <div className="flex items-center justify-center py-2 my-2 bg-gray-700">
+                <h1 className="gradient-text md:text-5xl md:p-2">eTec-NaN-Logic</h1>
+            </div>
+            <div className="flex items-center justify-center bg-gray-300">
+                <h2 className="font-bold tracking-[0.15em]">Your Best Choice For Gaming</h2>
+            </div>
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <h1 className="mt-4 mb-2 md:py-2 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Monday to Friday up to 20% OFF</h1>
@@ -217,6 +234,9 @@ export default function ProductDetail() {
 
                     <button
                         className='mt-2 flex w-full items-center justify-center border border-transparent bg-emerald-500 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                        onClick={() => {
+                            handleBuyProduct();
+                        }}
                     >
                         Buy Now
                     </button>

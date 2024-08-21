@@ -30,7 +30,7 @@ export const DeliveryAddress = ({ onSelectAddress }) => {
     <>
       <div className='flex items-center ml-1 mb-3'>
         <MapPinIcon className='h-8 w-8 cursor-pointer text-emerald-500 hover:text-indigo-500' />
-        <h2 className='mx-2 font-medium text-lg text-emerald-500'> Elige una dirección de envío: </h2>
+        <h2 className='mx-2 font-medium text-lg text-emerald-500'> Choose a shipping address:</h2>
       </div>
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-1 lg:grid-cols-1">
         {addresses.map((item) => (
@@ -46,9 +46,9 @@ export const DeliveryAddress = ({ onSelectAddress }) => {
                 <span className="font-normal">
                   <span className='font-medium'>Enviar a {item.name_surname}</span> <br />
                   <span className="text-gray-400">
-                    Dirección: {item.street} {item.street_number}, {item.department}, {item.city} <br />
-                    Teléfono: {item.phone} <br />
-                    {item.references && <>Referencias: {item.references} <br /></>}
+                    Address: {item.street} {item.street_number}, {item.department}, {item.city} <br />
+                    Phone: {item.phone} <br />
+                    {item.references && <>References: {item.references} <br /></>}
                   </span>
                 </span>
               </div>
@@ -58,7 +58,7 @@ export const DeliveryAddress = ({ onSelectAddress }) => {
       </ul>
       <Link to='/address'>
       <button className="mt-3 w-full bg-emerald-600 py-2 text-white font-normal hover:bg-emerald-700">
-        Agregar nueva dirección
+        Add Address
       </button>
       </Link>
     </>

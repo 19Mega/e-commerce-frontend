@@ -218,16 +218,16 @@ export default function Navbar() {
                 </div> */}
 
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                <div className="bg-gray-100 space-y-6 py-2">
                   {!localStorage.getItem('userName') && (
                     <>
                       <div className="flow-root">
-                        <Link to="/login" className="-m-2 block p-2 font-medium text-gray-900">
+                        <Link to="/login" className="ml-2 block p-2 font-medium text-gray-900 hover:bg-indigo-700 hover:text-white">
                           Login
                         </Link>
                       </div>
                       <div className="flow-root">
-                        <Link to="/signup" className="-m-2 block p-2 font-medium text-gray-900">
+                        <Link to="/signup" className="ml-2 block p-2 font-medium text-gray-900 hover:bg-indigo-700 hover:text-white">
                           Signup
                         </Link>
                       </div>
@@ -269,7 +269,7 @@ export default function Navbar() {
                   />
                 </a> */}
                 <Link to='/' className='transition transform hover:scale-105'>
-                  <span className='p-1 px-2 text-indigo-700 shadow-sm border-2 text-lg font-medium'>e-commerce</span>
+                  <span className='p-1 px-2 gradient-text shadow-sm border-2 text-sm md:text-lg font-medium'>eTec-NaN-Logic</span>
                 </Link>
 
 
@@ -437,7 +437,7 @@ export default function Navbar() {
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""
                     /> */}
-                      <span className='h-8 w-8 rounded-full text-indigo-700 shadow-sm border-2 text-lg font-medium'>{localStorage.getItem('userName')[0]}</span>
+                      <span className='h-8 w-8 rounded-full gradient-text shadow-sm border-2 text-lg font-medium'>{localStorage.getItem('userName')[0]}</span>
                     </Menu.Button>
                   </div>
                   <Transition

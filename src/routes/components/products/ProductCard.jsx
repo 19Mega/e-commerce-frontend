@@ -1,10 +1,8 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '../../context/UserContext'
 import { CartContext } from '../../context/CartContext';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-
-
-import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 //import { HeartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { HeartIcon } from '@heroicons/react/24/solid'
@@ -12,7 +10,7 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 
 export default function ProductCard({ product }) {
-
+  const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
 
   const { usuario } = useContext(UserContext)
@@ -28,8 +26,7 @@ export default function ProductCard({ product }) {
     else {
       Swal.fire({
         icon: 'warning',
-        title: 'Oops...',
-        text: 'Ingresa con tu cuenta para agregar favoritos!',
+        text: 'Log in with your account to add favorites!',
       })
     }
   }
@@ -42,8 +39,7 @@ export default function ProductCard({ product }) {
     else {
       Swal.fire({
         icon: 'warning',
-        title: 'Oops...',
-        text: 'Ingresa con tu cuenta para agregar favoritos!',
+        text: 'Log in with your account to add favorites!',
       })
     }
   }
@@ -55,10 +51,14 @@ export default function ProductCard({ product }) {
   const handleRemoveFromCart = (id) => {
     pass
   }
+
+  const handleProductDetail = (id) => {
+    navigate(`/productdetail/${id}`);
+  };
   
   return (
     <>
-      <li key={item.id} className='mb-2 ring-2 ring-transparent hover:ring-indigo-500'>
+      <li key={item.id} className='mb-2 ring-2 ring-transparent hover:ring-indigo-500' >
         <div className='relative cursor-pointer'>
 
           {item.favorite ? (
@@ -77,7 +77,7 @@ export default function ProductCard({ product }) {
             <div className='grid grid-cols-3 gap-2 p-2'>
 
               <div className='col-span-1  md:max-h-48 w-full overflow-hidden rounded-sm bg-gray-50 lg:aspect-none group-hover:opacity-75 lg:80 image-container'>
-                <img className='h-screen max-h-36 md:max-h-48 w-full object-scale-down' src={item.image_1} alt='Producto' />
+                <img className='h-screen max-h-36 md:max-h-48 w-full object-scale-down' src={item.image_1} onClick={() => handleProductDetail(item.id)} alt='Producto' />
               </div>
 
               <div className='col-span-2 w-full h-full bg-white-200 relative flex flex-col justify-between rounded-sm'>
@@ -86,7 +86,7 @@ export default function ProductCard({ product }) {
                     {/* <span className='pl-2 pb-1 text-black font-bold text-md md:text-2xl md:font-semibold block'> Titulo producto</span> */}
                     {/* <button className='p-2 text-red-500 hover:underline focus:outline-none'>Like</button> */}
                   </div>
-                  <span className='pl-2 mr-3 pr-2 md:mr-4 md:pr-2 text-sm md:text-xl block hover:text-indigo-600 cursor-pointer'>{item.short_description}</span>
+                  <span className='pl-2 mr-3 pr-2 md:mr-4 md:pr-2 text-sm md:text-xl block hover:text-indigo-600 cursor-pointer' onClick={() => handleProductDetail(item.id)} >{item.short_description}</span>
                 </div>
 
                 <div className='mt-2 flex'>
@@ -109,7 +109,7 @@ export default function ProductCard({ product }) {
                     </span>
                   </button>
 
-                  <button className='px-3 md:p-1 text-white bg-emerald-500 hover:bg-indigo-700 focus:outline-none rounded-sm font-medium'>Comprar</button>
+                  {/* <button className='px-3 md:p-1 text-white bg-emerald-500 hover:bg-indigo-700 focus:outline-none rounded-sm font-medium'>Comprar</button> */}
                 </div>
               </div>
 

@@ -1,90 +1,68 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
-
+const checkBox = [
+    {
+        id: 1,
+        name: 'Categories',
+        options: [
+            { id: '1', name: 'category', value: 'Electronics', description: 'All' },
+        ]
+    },
+    {
+        id: 2,
+        name: 'Subcategories',
+        options: [
+            { id: '1', name: 'subcategory', value: 'Graphics Cards', description: 'Graphics Cards' },
+            { id: '2', name: 'subcategory', value: 'Processors', description: 'Processors' },
+            { id: '3', name: 'subcategory', value: 'Keyboards', description: 'Keyboards' },
+        ]
+    },
+    {
+        id: 3,
+        name: 'Discounts',
+        options: [
+            { id: '1', name: 'discount', value: 5, description: 'Up to 5% off' },
+            { id: '2', name: 'discount', value: 10, description: 'Up to 10% off' },
+            { id: '3', name: 'discount', value: 15, description: 'Up to 15% off' },
+            { id: '4', name: 'discount', value: 20, description: 'Up to 20% off' },
+        ]
+    },
+    {
+        id: 4,
+        name: 'Price Range',
+        options: [
+            { id: '1', name: 'price', value: [0, 250], description: 'From 0 to 250 USD' },
+            { id: '2', name: 'price', value: [251, 500], description: 'From 251 to 500 USD' },
+            { id: '3', name: 'price', value: [501, 1000], description: 'From 501 to 1000 USD' },
+            { id: '4', name: 'price', value: [1001, 999999], description: 'Over 1000 USD' },
+        ]
+    }
+];
 
 export default function Test() {
+    const navigate = useNavigate();
 
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const debouncedQuery = useDebounce(query, 100);
+    const goToFilteredProducts = (filterName, filterValue) => {
+        navigate('/products', { state: { filter: { [filterName]: filterValue } } });
+    };
 
-
-  const search = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/product/search?q=${debouncedQuery}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          setResults(data)
-        }
-        else {
-          setResults([])
-        }
-
-      } catch (error) {
-        setResults([])
-      }
-   
-  }
-
-  useEffect(() => {
- 
-    search()
-  
-
-  }, [debouncedQuery])
-
-
-  return (
-    <>
-<div className="w-80">
-      <div className="flex items-center border-2">
-        <input
-          type="text"
-          className="p-1 px-2 text-indigo-700 text-md font-medium flex-grow"
-          placeholder="Buscar productos, marcas y más..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <div className="border-l-2 p-1.5">
-        <MagnifyingGlassIcon className="h-6 w-6 text-red-500" aria-hidden="true" />
+    return (
+        <div>
+            <h2>Filter Buttons</h2>
+            {checkBox.map((category) => (
+                <div key={category.id}>
+                    <h3>{category.name}</h3>
+                    {category.options.map((option) => (
+                        <button 
+                            key={option.id} 
+                            onClick={() => goToFilteredProducts(option.name, option.value)}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-1"
+                        >
+                            {option.description}
+                        </button>
+                    ))}
+                </div>
+            ))}
         </div>
-      </div>
-      {results.length > 0 && (
-        <ul className="">
-          {results.map((product) => (
-            <li key={product.id} className="bg-gray-100 border-1 mb-0.5 flex items-center p-2">
-              <img src={product.image_1} alt={product.short_description} className="bg-gray-300 w-12 h-12 mr-2" />
-              <span>{product.short_description}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-
-
-
-    </>
-  );
+    );
 }

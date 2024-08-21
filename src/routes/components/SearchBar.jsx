@@ -69,7 +69,7 @@ export default function SearchBar() {
 
     return (
         <>
-            <div className="z-50 w-96 relative shadow-sm" ref={resultsRef}>
+            <div className="z-10 w-96 relative shadow-sm" ref={resultsRef}>
                 <div className="flex items-center border-2">
                     <input
                         type="text"

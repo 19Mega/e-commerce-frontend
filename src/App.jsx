@@ -19,7 +19,6 @@ import Favorite from "./routes/pages/Favorite";
 import UserProfile from "./routes/pages/UserProfile"
 import UserAddress from "./routes/pages/UserAddress"
 
-import TestJuan from "./routes/pages/TestJuan"
 import ProductDetail from "./routes/pages/ProductDetail";
 
 //Providers
@@ -49,7 +48,6 @@ export const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/test" element={<Test />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/testjuan" element={<TestJuan />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/address" element={<UserAddress />} />
             <Route path="/address/:id" element={<UserAddress />} />
