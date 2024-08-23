@@ -4,7 +4,6 @@ import { CartContext } from '../../context/CartContext';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from "react-router-dom";
 
-//import { HeartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { HeartIcon } from '@heroicons/react/24/solid'
 
 import Swal from 'sweetalert2'
@@ -48,14 +47,17 @@ export default function ProductCard({ product }) {
     addToCart(id)
   }
 
-  const handleRemoveFromCart = (id) => {
-    pass
-  }
-
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
   };
-  
+
+  const handleBuyProduct = () => {
+    handleAddToCart(item.id);
+    setTimeout(() => {
+        navigate('/shoppingcart');
+    }, 250)
+};
+
   return (
     <>
       <li key={item.id} className='mb-2 ring-2 ring-transparent hover:ring-indigo-500' >
@@ -109,7 +111,9 @@ export default function ProductCard({ product }) {
                     </span>
                   </button>
 
-                  {/* <button className='px-3 md:p-1 text-white bg-emerald-500 hover:bg-indigo-700 focus:outline-none rounded-sm font-medium'>Comprar</button> */}
+                  <button className='px-3 md:p-1 text-white bg-emerald-500 hover:bg-indigo-700 focus:outline-none rounded-sm font-medium'
+                    onClick={() => { handleBuyProduct() }}
+                  >Buy it</button>
                 </div>
               </div>
 

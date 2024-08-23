@@ -17,7 +17,7 @@ export default function ProductDetail() {
     const { productAction } = product
 
     const { usuario } = useContext(UserContext)
-    const { userStore, userAction } = usuario
+    const { userAction } = usuario
 
     const { addToCart } = useContext(CartContext);
 
@@ -83,6 +83,7 @@ export default function ProductDetail() {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getProduct(params.id)
     }, [])
 
@@ -169,14 +170,15 @@ export default function ProductDetail() {
                 <div className='mt-8'>
                     <div className='flex'>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-900'>
-                            U$D {(item?.price || 0).toFixed(2)}
+                            U$D {item?.price || 0}
                         </p>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-300 mx-1'>/</p>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-300 line-through'>
-                            {((1 + (item?.discount || 0) / 100) * (item?.price || 0)).toFixed(2)}
+                            {(1 + (item?.discount || 0) / 100) * (item?.price || 0)}
                         </p>
-                    </div>
+                        <span className='pl-2 pb-1 text-red-500 text-xs font-semibold md:text-lg block '>{item?.discount}% OFF </span>
 
+                    </div>
 
                     <div className='my-2'>
                         <span className='text-emerald-500 font-semibold underline'>Free Shipping</span>
@@ -184,7 +186,7 @@ export default function ProductDetail() {
                     </div>
 
 
-                    <div className='text-lg border-2 border-gray-100 shadow-sm text-gray-500 px-2 py-2 mt-4 rounded-sm'>
+                    <div className='text-lg text-gray-700 px-2 py-2 my-8 rounded-sm'>
                         {item?.short_description}
                     </div>
 
@@ -192,11 +194,6 @@ export default function ProductDetail() {
                         {item?.long_description}
                     </div>
 
-                    {/* <ul className='text-lg border-2 border-gray-100 text-gray-500 p-2 mt-2 rounded-sm'>
-                        <li>
-                            <span className='text-indigo-500 font-semibold'> ● </span> <span className='font-medium text-base'> Una tarjeta gráfica potente y confiable. </span>
-                        </li>
-                    </ul> */}
 
                     <ul className='border-2 border-gray-100 shadow-sm text-gray-600 p-2 mt-2 rounded-sm'>
                         <span className='text-indigo-400 text-lg font-semibold'>About this article</span>
@@ -249,36 +246,6 @@ export default function ProductDetail() {
 
                 </div>
 
-                <div className=' '>
-                    {/* Description and details */}
-                    {/* <div>
-                        <h3 className='sr-only'>Description</h3>
-                        <div className='space-y-6'>
-                            <p className='text-base text-gray-900'>{item.long_description}</p>
-                        </div>
-                    </div> */}
-
-                    {/* <div className='mt-10'>
-                        <h3 className='text-sm font-medium text-gray-900'>Highlights</h3>
-                        <div className='mt-4'>
-                            <ul role='list' className='list-disc space-y-2 pl-4 text-sm'>
-                                {product.highlights.map((highlight) => (
-                    <li key={highlight} className='text-gray-400'>
-                      <span className='text-gray-600'>{highlight}</span>
-                    </li>
-                  ))}
-                            </ul>
-                        </div>
-                    </div> */}
-
-                    {/* <div className='mt-10'>
-                        <h2 className='text-sm font-medium text-gray-900'>Details</h2>
-                        <div className='mt-4 space-y-6'>
-                            <p className='text-sm text-gray-600'>{product.details}</p>
-                        </div>
-                    </div> */}
-
-                </div>
             </div>
 
         </div>
