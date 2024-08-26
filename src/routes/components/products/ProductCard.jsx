@@ -68,8 +68,8 @@ export default function ProductCard({ product }) {
               <HeartIcon className='h-7 w-7 cursor-pointer text-red-500' aria-hidden='true' onClick={() => handleDislike(item.id)} />
             </div>
           ) : (
-            <div className='absolute top-0 right-0 text-xl pr-1 pt-1  z-10'>
-              <HeartIcon className='h-7 w-7 cursor-pointer text-gray-200 hover:text-red-500 transition-colors duration-300' aria-hidden='true' onClick={() => handleLike(item.id)} />
+            <div className='absolute top-0 right-0 text-xl pr-1 pt-1 z-10'>
+              <HeartIcon className='h-7 w-7 cursor-pointer text-gray-200' aria-hidden='true' onClick={() => handleLike(item.id)} />
             </div>
           )}
 

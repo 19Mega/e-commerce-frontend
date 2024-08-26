@@ -23,13 +23,13 @@ export const Login = () => {
       password: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('email invalido').required('Required').matches(/.*\.com$/, 'Debe terminar en .com'),
+      email: Yup.string().email('Invalid email').required('Required').matches(/.*\.com$/, 'Must end with .com'),
       password: Yup.string().required('Required'),
-    }),
+    }),    
     onSubmit: async (values) => {
       const loginResult = await userAction.login(values.email, values.password);
       if (loginResult.success) {
-        setCart(JSON.parse(localStorage.getItem('userCart'))); // to update cart after login
+        setCart(JSON.parse(localStorage.getItem('userCart'))); 
         Swal.fire({
           title: 'Welcome!',
           icon: 'success',

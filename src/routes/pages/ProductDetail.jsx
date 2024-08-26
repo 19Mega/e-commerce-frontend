@@ -7,6 +7,8 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import { UserContext } from '../context/UserContext'
 import { CartContext } from '../context/CartContext'
 
+import Swal from 'sweetalert2';
+
 export default function ProductDetail() {
     const navigate = useNavigate();
 
@@ -117,7 +119,7 @@ export default function ProductDetail() {
                                 {item.favorite ? (
                                     <HeartIcon className='h-12 w-12 cursor-pointer text-red-500' aria-hidden='true' onClick={() => handleDislike(item.id)} />
                                 ) : (
-                                    <HeartIcon className='h-12 w-12 cursor-pointer text-gray-200 hover:text-red-500 transition-colors duration-300' aria-hidden='true' onClick={() => handleLike(item.id)} />
+                                    <HeartIcon className='h-12 w-12 cursor-pointer text-gray-200' aria-hidden='true' onClick={() => handleLike(item.id)} />
                                 )}
                             </div>
                         )}
@@ -174,7 +176,7 @@ export default function ProductDetail() {
                         </p>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-300 mx-1'>/</p>
                         <p className='text-3xl md:text-3xl tracking-tight text-gray-300 line-through'>
-                            {(1 + (item?.discount || 0) / 100) * (item?.price || 0)}
+                            {((1 + (item?.discount || 0) / 100) * (item?.price || 0)).toFixed(2)}
                         </p>
                         <span className='pl-2 pb-1 text-red-500 text-xs font-semibold md:text-lg block '>{item?.discount}% OFF </span>
 
@@ -196,7 +198,7 @@ export default function ProductDetail() {
 
 
                     <ul className='border-2 border-gray-100 shadow-sm text-gray-600 p-2 mt-2 rounded-sm'>
-                        <span className='text-indigo-400 text-lg font-semibold'>About this article</span>
+                        <span className='gradient-text text-lg font-semibold '>About this article</span>
 
                         {item?.characteristic_1_title &&
                             <li>
