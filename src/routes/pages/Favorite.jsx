@@ -1,96 +1,128 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ProductContext } from '../context/ProductContext';
+import { UserContext } from '../context/UserContext';
 import Swal from 'sweetalert2';
+import { XMarkIcon, HeartIcon } from '@heroicons/react/24/solid';
+
 
 export default function Favorite() {
-  const [favoriteItems, setFavoriteItems] = useState([]);
   const navigate = useNavigate();
+  const [favorites, setFavorites] = useState([]);
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+
+  const { usuario } = useContext(UserContext);
+  const { userStore, userAction } = usuario;
+
+  const { product } = useContext(ProductContext);
+  const { productStore, productAction } = product;
+
+  const handleProductDetail = (id) => {
+    navigate(`/productdetail/${id}`);
+  };
+
+
+  const handleDeleteFavorite = async (id) => {
+    try {
+      const response = await userAction.deleteFavorite(id);
+      if (response.success) {
+        setFavoriteProducts(prevFavorites => prevFavorites.filter(item => item.id !== id));
+        Swal.fire({
+          title: 'Deleted',
+          text: 'Favorite product removed successfully.',
+          icon: 'success',
+          timer: 1500, 
+          timerProgressBar: true, 
+          showConfirmButton: true, 
+          confirmButtonText: 'OK'
+        });
+      } else {
+        Swal.fire('Error', 'Failed to delete favorite product.', 'error');
+      }
+    } catch (error) {
+      Swal.fire('Error', `An error occurred: ${error.message}`, 'error');
+    }
+  };
+  
+  const getFavoriteProducts = async () => {
+    const favorites = JSON.parse(localStorage.getItem('userFavorites'));
+
+    if (favorites && favorites.length > 0) {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(favorites),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setFavoriteProducts(data);
+        } else {
+          Swal.fire('Error', 'Failed to fetch favorite products.', 'error');
+        }
+      } catch (error) {
+        Swal.fire('Error', `An error occurred: ${error.message}`, 'error');
+      }
+    } else {
+      Swal.fire('No Favorites', 'You have no favorite products.', 'info');
+    }
+  };
 
   useEffect(() => {
     getFavoriteProducts();
   }, []);
 
-  const getFavoriteProducts = () => {
-    // Simulating an async call to get favorite products
-    setFavoriteItems([
-      {
-        id: 1,
-        short_description: 'Mochila Jansport Superbreak Pantano',
-        price: 2000,
-        quantity: 1,
-        imageUrl: 'https://f.fcdn.app/imgs/4b7a7e/www.inboxstore.com.uy/inbouy/092e/webp/catalogo/JS0A4QUE_1234_1/549x549/mochila-jansport-superbreak-plus-deep-verde.jpg',
-      },
-      {
-        id: 2,
-        short_description: 'Mochila JanSport Big Student Petroleo',
-        price: 3000,
-        quantity: 1,
-        imageUrl: 'https://f.fcdn.app/imgs/375ba7/www.inboxstore.com.uy/inbouy/c170/webp/catalogo/JS0A4QVA_16494_1/549x549/mochila-jansport-right-deep-verde.jpg',
-      },
-      {
-        id: 3,
-        short_description: 'Mochila Jansport Superbreak Roja',
-        price: 1900,
-        quantity: 1,
-        imageUrl: 'https://f.fcdn.app/imgs/423770/www.inboxstore.com.uy/inbouy/f52b/webp/catalogo/JS0A4QUT_6403_1/549x549/mochila-jansport-superbreak-dry-brush-rojo.jpg',
-      },
-    ]);
-  };
-
-  const handleRemoveFavorite = (itemId) => {
-    setFavoriteItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
-
-  const calculateTotal = () => {
-    return favoriteItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-  };
-
-  const handleCheckout = () => {
-    if (localStorage.getItem('userName')) {
-      if (favoriteItems.length === 0) {
-        Swal.fire({
-          icon: 'warning',
-          text: 'You need to have items in your favorites to proceed.',
-        });
-      } else {
-        navigate('/checkout', { state: { itemsForPurchase: favoriteItems } });
-      }
-    } else {
-      Swal.fire({
-        icon: 'error',
-        text: 'Log in with your account please.',
-      });
-    }
-  };
-
   return (
-    <div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="my-4 md:py-2 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Favorites</h1>
-        <div className='mb-3 h-0.5 flex-grow bg-gradient-to-r from-emerald-400 to-indigo-500'> </div>
-        <div className="mx-auto justify-center md:flex md:space-x-6 xl:px-0">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 className="md:my-4 my-3 md:py-2 py-3 text-center text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-400 to-indigo-500 text-white">Favorites</h1>
 
-          <div className="w-full">
-            {favoriteItems.map((item) => (
-              <div key={item.id} className="justify-between mb-6 rounded-sm bg-white border-2 border-gray-200 shadow-sm sm:flex sm:justify-start">
-                <img
-                  src={item.imageUrl}
-                  alt="product-image"
-                  className="w-full rounded-lg sm:w-40"
-                />
-                <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                  <div className="mt-5 sm:mt-0">
-                    <h2 className="text-lg font-bold text-gray-900">{item.short_description}</h2>
-                    <p className="mt-2 text-dark">U$D {item.price}</p>
-                    <button onClick={() => handleRemoveFavorite(item.id)} className="text-blue-500 mt-2">Remove</button>
+      <div className='justify-center items-center md:mx-32'>
+        {favoriteProducts.length > 0 ? (
+          <ul>
+            {favoriteProducts.map(item => (
+              <li key={item.id} className='mb-2 ring-2 ring-transparent hover:ring-red-500'>
+                <div className='relative cursor-pointer'>
+
+                  <div className='w-full shadow-sm border-2'>
+                    <div className='grid grid-cols-3 gap-2 p-2'>
+
+                      <div className='col-span-1 md:max-h-48 w-full overflow-hidden rounded-sm bg-gray-50 lg:aspect-none group-hover:opacity-75 lg:80 image-container'>
+                        <img className='h-screen max-h-36 md:max-h-48 w-full object-scale-down' src={item.image_1} alt='Producto' onClick={() => handleProductDetail(item.id)}/>
+                      </div>
+
+                      <div className='col-span-2 w-full h-full bg-white-200 relative flex flex-col justify-between rounded-sm'>
+                        <div>
+                          <div className='flex justify-between'>
+                          </div>
+                          <span className='pl-2 mr-3 pr-2 md:mr-4 md:pr-2 text-sm md:text-xl block hover:text-indigo-600 cursor-pointer' onClick={() => handleProductDetail(item.id)}>{item.short_description}</span>
+                        </div>
+
+                        <div className='mt-2 flex'>
+                          <span className='pl-2 pb-1 text-gray-500 text-md md:pr-1 md:text-md md:font-medium block'>U$D</span>
+                          <span className='pl-1 pb-1 text-gray-900 text-xl md:text-2xl block'>{item.price.toFixed(2)}</span>
+                          <span className='pl-2 pb-1 text-gray-300 text-xl md:text-2xl block'> / </span>
+                          <span className='pl-2 pb-1 text-gray-300 text-xl md:text-2xl block line-through'>{(item.price * 1.2).toFixed()}</span>
+                          <span className='pl-2 pb-1 text-red-500 text-xs font-semibold md:text-lg block '>{item.discount}% OFF </span>
+                        </div>
+
+                        <div className='flex justify-end items-end'>
+                          <HeartIcon className='h-7 w-7 cursor-pointer text-red-500 mr-1' aria-hidden='true' />
+                          <XMarkIcon className='h-7 w-7 cursor-pointer text-gray-500 hover:text-red-500' aria-hidden='true' onClick={() => handleDeleteFavorite(item.id)} />
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
-
-
-        </div>
+          </ul>
+        ) : (
+          <p className='text-center my-24 text-3xl font-thin'>No favorite products found.</p>
+        )}
       </div>
     </div>
   );
